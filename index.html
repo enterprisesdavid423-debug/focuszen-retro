@@ -1,0 +1,176 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>FocusZen – Pixel Nature Retreat</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+
+    body {
+      font-family: 'Press Start 2P', cursive;
+      background: url('https://i.ibb.co/mFrRjM1/pixel-nature-bg.png') repeat;
+      background-size: cover;
+      color: #fff;
+      overflow-x: hidden;
+      min-height: 100vh;
+    }
+
+    canvas#leaves {
+      position: fixed;
+      top: 0;
+      left: 0;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      position: relative;
+      z-index: 1;
+      padding: 4rem 2rem 2rem;
+      text-align: center;
+    }
+
+    h1 {
+      font-size: 1.5rem;
+      margin-bottom: 1rem;
+      white-space: nowrap;
+      overflow: hidden;
+      display: inline-block;
+      animation: typing 4s steps(40, end) forwards;
+      border-right: 2px solid #fff;
+    }
+
+    @keyframes typing {
+      from { width: 0 }
+      to { width: 100% }
+    }
+
+    .cta {
+      margin: 2rem 0;
+    }
+
+    .cta a {
+      padding: 1rem 2rem;
+      background: #70d38b;
+      color: #000;
+      text-decoration: none;
+      border: 2px solid #000;
+      display: inline-block;
+    }
+
+    .features, .gallery {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 2rem;
+      padding: 2rem;
+    }
+
+    .feature-box, .gallery img {
+      background: #222;
+      padding: 1rem;
+      border: 2px solid #555;
+      width: 300px;
+      text-align: center;
+    }
+
+    .gallery img {
+      background: #111;
+      border-radius: 8px;
+    }
+
+    footer {
+      padding: 2rem;
+      text-align: center;
+      font-size: 0.75rem;
+      color: #aaa;
+    }
+  </style>
+</head>
+<body>
+
+<canvas id="leaves"></canvas>
+
+<div class="container">
+  <h1>FocusZen: Find Peace in Pixel Nature</h1>
+  <p style="margin: 2rem auto; max-width: 500px;">
+    Breathe in calm. A pixel-perfect meditation escape among fields, forests, and falling leaves.
+  </p>
+  <div class="cta">
+    <a href="#">🌿 Start the Journey</a>
+  </div>
+</div>
+
+<section class="features">
+  <div class="feature-box">
+    <h3>Meditation Mode</h3>
+    <p>Retro ambient loops and guided focus paths.</p>
+  </div>
+  <div class="feature-box">
+    <h3>Nature Pixel Vibes</h3>
+    <p>Forest, meadow and lake themes – all 8-bit chill.</p>
+  </div>
+  <div class="feature-box">
+    <h3>Custom Scenes</h3>
+    <p>Create your own peaceful pixel pocket world.</p>
+  </div>
+</section>
+
+<section class="gallery">
+  <img src="https://i.ibb.co/X5rQLGD/pixel-tree.png" alt="Tree">
+  <img src="https://i.ibb.co/zJc6MYg/pixel-meadow.png" alt="Meadow">
+  <img src="https://i.ibb.co/k2JQPHk/pixel-cabin.png" alt="Cabin">
+</section>
+
+<footer>
+  &copy; 2025 FocusZen. Designed in pixel peace by David ✨
+</footer>
+
+<script>
+  const canvas = document.getElementById("leaves");
+  const ctx = canvas.getContext("2d");
+  let leaves = [];
+
+  function resizeCanvas() {
+    canvas.width = window.innerWidth;
+    canvas.height = window.innerHeight;
+  }
+
+  function createLeaves() {
+    for (let i = 0; i < 40; i++) {
+      leaves.push({
+        x: Math.random() * canvas.width,
+        y: Math.random() * canvas.height,
+        size: Math.random() * 20 + 10,
+        speed: Math.random() * 1 + 0.5
+      });
+    }
+  }
+
+  function drawLeaves() {
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    for (let leaf of leaves) {
+      ctx.fillStyle = "#70d38b";
+      ctx.beginPath();
+      ctx.arc(leaf.x, leaf.y, leaf.size / 4, 0, Math.PI * 2);
+      ctx.fill();
+      leaf.y += leaf.speed;
+      if (leaf.y > canvas.height) {
+        leaf.y = 0;
+        leaf.x = Math.random() * canvas.width;
+      }
+    }
+    requestAnimationFrame(drawLeaves);
+  }
+
+  window.addEventListener("resize", resizeCanvas);
+  resizeCanvas();
+  createLeaves();
+  drawLeaves();
+</script>
+
+</body>
+</html>
